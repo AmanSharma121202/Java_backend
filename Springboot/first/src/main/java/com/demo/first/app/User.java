@@ -1,6 +1,4 @@
-package com.demo.first;
-
-import org.springframework.web.bind.annotation.RestController;
+package com.demo.first.app;
 
 
 //POJO CLASS: Plain old java objects (class which does not extend any frameWork).
