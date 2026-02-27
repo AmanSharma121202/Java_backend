@@ -46,8 +46,46 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUser(){
+    public List<User> getUsers(){
         return new ArrayList<>(userDb.values());
+    }
+
+    @GetMapping ("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable(value = "userId", required = false) int id){
+        if(!userDb.containsKey(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(userDb.get(id));
+    }
+
+    @GetMapping ("/{userId}/orders/{orderId}")
+    public ResponseEntity<User>getUserOrder(
+            @PathVariable("userId") int id,
+            @PathVariable int orderId
+    ){
+        System.out.println("ORDER ID: " +orderId);
+        if(!userDb.containsKey(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(userDb.get(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<User>>searchUsers(
+            @RequestParam(required = false,defaultValue="alice") String name,
+            @RequestParam(required = false,defaultValue="email") String email){
+        System.out.println(name + " " + email);
+        List<User>users = userDb.values().stream()
+                .filter(u-> u.getName().equalsIgnoreCase(name))
+                .filter(u-> u.getEmail().equalsIgnoreCase(email))
+                .toList();
+        return ResponseEntity.ok(users);
+
+    }
+
+    @GetMapping("/info")
+    public String getInfo(@RequestHeader("User-Agent") String userAgent){
+        return "user Agent: "+ userAgent;
     }
 }
 
