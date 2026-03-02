@@ -1,4 +1,4 @@
-package com.demo.first.app;
+package com.demo.first.app.model;
 
 
 //POJO CLASS: Plain old java objects (class which does not extend any frameWork).
