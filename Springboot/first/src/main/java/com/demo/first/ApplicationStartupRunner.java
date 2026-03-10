@@ -11,5 +11,4 @@ public class ApplicationStartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Application has started using CommandLineRunner");
     }
-
 }
